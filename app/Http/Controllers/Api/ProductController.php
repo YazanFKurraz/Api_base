@@ -16,7 +16,6 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-
         //get products all
         //with return multi row must be use ::collection not use new Resource
         $product_all =  ProductCollection::collection( Product::all());
@@ -29,9 +28,9 @@ class ProductController extends Controller
 
         $product = Product::with('reviews')->where('id', $request->id)->first();
 
-        if (!$product) {
-            return $this->sendResponse(false, 'not found product', '', 404);
-        }
+            if (!$product) {
+                return $this->sendResponse(false, 'not found product', '', 404);
+            }
 
         $product = new ProductResource($product);
 

@@ -73,7 +73,7 @@ Route::group(['middleware' => ['api', 'checkLanguage'], 'namespace' => 'Api'], f
     });
 
     Route::group(['prefix' => 'product', /*'middleware' => 'auth.guard:admin_api'*/], function () {
-        Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+        Route::get('/', [ProductController::class, 'index'])->name('products.index');
         Route::get('/show/{id}', [ProductController::class, 'show'])->name('product.show');
         Route::get('/reviews/{id}', [ProductController::class, 'showReviewProduct'])->name('product.reviews');
         Route::post('/store', [ProductController::class, 'store'])->name('product.store');
@@ -83,7 +83,7 @@ Route::group(['middleware' => ['api', 'checkLanguage'], 'namespace' => 'Api'], f
     });
 
     Route::group(['prefix' => 'review', /*'middleware' => 'auth.guard:admin_api'*/], function () {
-        Route::get('/reviews', [ReviewController::class, 'index']);
+        Route::get('/', [ReviewController::class, 'index']);
         Route::post('/store', [ReviewController::class, 'store']);
         Route::get('/show', [ReviewController::class, 'show']);
         Route::put('/update', [ReviewController::class, 'update']);

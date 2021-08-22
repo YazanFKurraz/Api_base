@@ -2,11 +2,17 @@
 
 namespace App\Exceptions;
 
+use App\Http\Traits\GerenalApi;
+use ErrorException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+
+    use GerenalApi, GerenalException;
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -37,5 +43,19 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $exception)
+    {
+
+//        dd(get_class($exception));
+
+        if ($request->expectsJson()) {
+
+            return $this->apiException($request, $exception);
+
+        }
+
+        return parent::render($request, $exception);
     }
 }
